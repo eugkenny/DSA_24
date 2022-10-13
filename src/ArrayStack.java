@@ -1,30 +1,29 @@
-public class ArrayStackOfStrings implements StackOfStrings{
+public class ArrayStack <E> implements Stack<E>{
 
-    String [] stack;
+    E [] stack;
     int top;
 
-    public ArrayStackOfStrings(){
-        stack = new String[4];
+    public ArrayStack(){
+        stack = (E[]) new Object[4];
         top = 0;
     }
-
     @Override
-    public void push(String s) {
+    public void push(E element) {
         if (top == stack.length){
             resize(stack.length * 2);
         }
-        stack[top] = s;
+        stack[top] = element;
         top++;
     }
 
     @Override
-    public String pop() {
+    public E pop() {
         top--;
         return stack[top];
     }
 
     @Override
-    public String peek() {
+    public E peek() {
         return stack[top - 1];
     }
 
@@ -39,7 +38,7 @@ public class ArrayStackOfStrings implements StackOfStrings{
     }
 
     private void resize(int newCapacity){
-        String [] newStack = new String[newCapacity];
+        E [] newStack = (E[]) new Object[newCapacity];
 
         for(int i = 0; i < stack.length; i++){
             newStack[i] = stack[i];
