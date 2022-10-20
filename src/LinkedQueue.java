@@ -1,31 +1,48 @@
+package litany.util;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedStack<E> implements Stack<E>{
-	
+public class LinkedQueue<E> implements Queue<E>{
+
 	private int size;
-	private Node<E> top;
+	private Node<E> front;
+	private Node<E> rear;
 	
-	public LinkedStack(){
-		top = null;
+	public LinkedQueue(){
+		front = null;
+		rear = null;
 		size = 0;
 	}
-
+		
 	@Override
-	public void push(E element) {
-		Node<E> temp = top;
-		top = new Node<E>(element, temp);
+	public void enqueue(E element) {
+		Node<E> temp = rear;
+		rear = new Node<E>(element, null);
+		
+		if(isEmpty()) {
+			front = rear;
+		}
+		else {
+			temp.next = rear;
+		}
+		
 		size++;
 	}
 
 	@Override
-	public E pop() {
+	public E dequeue() {
 		if (isEmpty()) {
 			throw new NoSuchElementException("Stack empty");
 		}
-		E element = top.element;
-		top = top.next;
+		
+		E element = front.element;
+		front = front.next;
 		size--;
+		
+		if(isEmpty()) {
+			rear = null;
+		}
 		
 		return element;
 	}
@@ -35,7 +52,7 @@ public class LinkedStack<E> implements Stack<E>{
 		if (isEmpty()) {
 			throw new NoSuchElementException("Stack empty");
 		}
-		return top.element;
+		return front.element;
 	}
 
 	@Override
@@ -68,9 +85,9 @@ public class LinkedStack<E> implements Stack<E>{
 	
 	@Override
 	public Iterator<E> iterator() {
-		return new StackIterator();
+		return new QueueIterator();
 	}
-
+	
 	private static class Node<E>{
 		E element;
 		Node<E> next;
@@ -81,12 +98,12 @@ public class LinkedStack<E> implements Stack<E>{
         }
 	}
 	
-	private class StackIterator implements Iterator<E>{
+	private class QueueIterator implements Iterator<E>{
 		
 		private Node<E> current;
 		
-		public StackIterator() {
-			current = top;
+		public QueueIterator() {
+			current = front;
 		}
 
 		@Override
