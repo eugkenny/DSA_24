@@ -6,8 +6,8 @@ public class InfixEval {
         Stack<Character> ops = new ArrayStack<>();
 
         for (int i = 0; i < expr.length(); i++){
-            if(expr.charAt(i) == ' ' || expr.charAt(i) =='(');
-
+            if(expr.charAt(i) == ' ' || expr.charAt(i) =='(')
+                continue;
             else if(expr.charAt(i) == '+' || expr.charAt(i) == '-' || expr.charAt(i) == '*' || expr.charAt(i) == '/'){
                 ops.push(expr.charAt(i));
             }
@@ -24,10 +24,9 @@ public class InfixEval {
                 }
             }
             else{
-                values.push((int)expr.charAt(i));
+                values.push((Integer.parseInt(String.valueOf(expr.charAt(i)))));
             }
-
-            System.out.println(expr + " = " + values.pop());
         }
+        System.out.println(expr + " = " + values.pop());
     }
 }
