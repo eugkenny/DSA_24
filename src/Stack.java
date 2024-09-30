@@ -22,7 +22,7 @@ public interface Stack<E> extends Iterable<E> {
 
 	/**
 	 * Pop (remove) the element from the top of the stack
-	 * 
+	 * `
 	 * @return the element from the top of the stack
 	 */
 	public E pop();
